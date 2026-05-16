@@ -1,0 +1,1289 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>3º Avivamento — Paróquia Imaculada Conceição</title>
+  <style>
+    :root {
+      --crimson: #8B0000;
+      --crimson-dark: #4a0000;
+      --crimson-mid: #6B0000;
+      --fire-orange: #FF6B00;
+      --fire-gold: #FFA500;
+      --fire-yellow: #FFD700;
+      --bg-dark: #0d0000;
+      --bg-card: #1a0000;
+      --bg-card2: #220000;
+      --text-light: #f5e6d3;
+      --text-muted: #c9a080;
+      --border: rgba(255, 107, 0, 0.3);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-light);
+      font-family: 'Georgia', serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ── FIRE PARTICLES ── */
+    .fire-bg {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .ember {
+      position: absolute;
+      bottom: -10px;
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: var(--fire-orange);
+      animation: rise linear infinite;
+      opacity: 0;
+    }
+
+    @keyframes rise {
+      0%   { transform: translateY(0) translateX(0) scale(1); opacity: 0.8; }
+      50%  { opacity: 0.6; transform: translateY(-40vh) translateX(var(--drift)) scale(0.8); }
+      100% { transform: translateY(-90vh) translateX(calc(var(--drift) * 2)) scale(0.3); opacity: 0; }
+    }
+
+    /* ── HEADER ── */
+    header {
+      position: relative;
+      z-index: 10;
+      background: linear-gradient(180deg, #1a0000 0%, #3d0000 50%, #1a0000 100%);
+      border-bottom: 2px solid var(--fire-orange);
+      padding: 32px 20px 28px;
+      text-align: center;
+      box-shadow: 0 4px 40px rgba(255, 107, 0, 0.4);
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 28px;
+      flex-wrap: wrap;
+    }
+
+    .logo-wrap {
+      position: relative;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .logo-img {
+      width: 145px;
+      height: 145px;
+      border-radius: 50%;
+      object-fit: cover;
+      object-position: center center;
+      border: 3px solid var(--fire-orange);
+      box-shadow: 0 0 30px rgba(255, 107, 0, 0.7), 0 0 60px rgba(139, 0, 0, 0.5);
+      animation: glowPulse 3s ease-in-out infinite;
+      display: block;
+    }
+
+    @keyframes glowPulse {
+      0%, 100% { box-shadow: 0 0 30px rgba(255, 107, 0, 0.7), 0 0 60px rgba(139, 0, 0, 0.5); }
+      50%       { box-shadow: 0 0 50px rgba(255, 107, 0, 1),   0 0 90px rgba(255, 50, 0, 0.6); }
+    }
+
+    .header-text h1 {
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: bold;
+      background: linear-gradient(135deg, var(--fire-gold), var(--fire-orange), #ff3300);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      text-shadow: none;
+      filter: drop-shadow(0 0 8px rgba(255, 150, 0, 0.6));
+    }
+
+    .header-text .subtitle {
+      font-size: 1rem;
+      color: var(--text-muted);
+      margin-top: 6px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+    }
+
+    .header-text .dates-badge {
+      display: inline-block;
+      margin-top: 10px;
+      background: linear-gradient(90deg, var(--crimson), var(--fire-orange), var(--crimson));
+      color: #fff;
+      padding: 5px 18px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      letter-spacing: 1px;
+      font-weight: bold;
+      box-shadow: 0 2px 12px rgba(255, 107, 0, 0.5);
+    }
+
+    /* ── NAV TABS ── */
+    .main-nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: #1a0000;
+      border-bottom: 2px solid var(--border);
+      display: flex;
+      gap: 0;
+      overflow-x: auto;
+      box-shadow: 0 2px 20px rgba(0,0,0,0.5);
+    }
+
+    .main-nav button {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      padding: 16px 28px;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: all 0.3s;
+      border-bottom: 3px solid transparent;
+      white-space: nowrap;
+      font-family: 'Georgia', serif;
+      letter-spacing: 1px;
+    }
+
+    .main-nav button:hover {
+      color: var(--fire-orange);
+      background: rgba(255, 107, 0, 0.05);
+    }
+
+    .main-nav button.active {
+      color: var(--fire-orange);
+      border-bottom-color: var(--fire-orange);
+      background: rgba(255, 107, 0, 0.08);
+    }
+
+    /* ── CONTENT AREA ── */
+    .content {
+      position: relative;
+      z-index: 10;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 32px 20px 60px;
+    }
+
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    /* ── COUNTDOWN ── */
+    .countdown-section {
+      background: linear-gradient(135deg, #220000, #3d0000);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 40px 24px;
+      text-align: center;
+      margin-bottom: 36px;
+      box-shadow: 0 8px 40px rgba(255, 107, 0, 0.15), inset 0 1px 0 rgba(255, 200, 0, 0.1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .countdown-section::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, var(--fire-orange), var(--fire-gold), var(--fire-orange), transparent);
+    }
+
+    .countdown-title {
+      font-size: 0.85rem;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 28px;
+    }
+
+    .countdown-grid {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-bottom: 24px;
+    }
+
+    .countdown-block {
+      background: var(--bg-dark);
+      border: 1px solid rgba(255, 107, 0, 0.4);
+      border-radius: 12px;
+      padding: 20px 30px;
+      min-width: 140px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+    }
+
+    .countdown-number {
+      font-size: 3.2rem;
+      font-weight: bold;
+      background: linear-gradient(180deg, var(--fire-gold), var(--fire-orange));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1;
+      filter: drop-shadow(0 0 6px rgba(255, 150, 0, 0.5));
+    }
+
+    .countdown-label {
+      font-size: 0.75rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-top: 6px;
+    }
+
+    .event-dates-display {
+      font-size: 1rem;
+      color: var(--fire-gold);
+      margin-top: 8px;
+      letter-spacing: 1px;
+    }
+
+    /* ── SECTION HEADINGS ── */
+    .section-heading {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 20px;
+      margin-top: 36px;
+    }
+
+    .section-heading h2 {
+      font-size: 1.4rem;
+      color: var(--fire-gold);
+      letter-spacing: 1px;
+    }
+
+    .section-heading .line {
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, var(--fire-orange), transparent);
+    }
+
+    .flame-icon {
+      font-size: 1.4rem;
+    }
+
+    /* ── CARDS ── */
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    }
+
+    .card p {
+      line-height: 1.8;
+      color: var(--text-light);
+      font-size: 0.97rem;
+    }
+
+    /* ── RULES ── */
+    .rules-list {
+      list-style: none;
+      padding: 0;
+    }
+
+    .rules-list li {
+      padding: 10px 0 10px 28px;
+      position: relative;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      line-height: 1.7;
+      font-size: 0.95rem;
+      color: var(--text-light);
+    }
+
+    .rules-list li:last-child { border-bottom: none; }
+
+    .rules-list li::before {
+      content: '🔥';
+      position: absolute;
+      left: 0;
+      font-size: 0.8rem;
+      top: 12px;
+    }
+
+    /* ── TEAM NAV ── */
+    .team-nav-wrap {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 28px;
+    }
+
+    .team-btn {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      padding: 9px 16px;
+      border-radius: 24px;
+      cursor: pointer;
+      font-size: 0.82rem;
+      transition: all 0.2s;
+      font-family: 'Georgia', serif;
+      white-space: nowrap;
+    }
+
+    .team-btn:hover {
+      border-color: var(--fire-orange);
+      color: var(--fire-orange);
+      background: rgba(255, 107, 0, 0.08);
+    }
+
+    .team-btn.active {
+      background: linear-gradient(135deg, var(--crimson), #6B0000);
+      border-color: var(--fire-orange);
+      color: var(--fire-gold);
+      box-shadow: 0 2px 12px rgba(255, 107, 0, 0.3);
+    }
+
+    /* ── TEAM CARD ── */
+    .team-panel { display: none; }
+    .team-panel.active { display: block; }
+
+    .team-header {
+      background: linear-gradient(135deg, #3d0000, #220000);
+      border: 1px solid var(--border);
+      border-radius: 14px 14px 0 0;
+      padding: 24px 28px;
+      border-bottom: 2px solid var(--fire-orange);
+    }
+
+    .team-header h2 {
+      font-size: 1.6rem;
+      background: linear-gradient(135deg, var(--fire-gold), var(--fire-orange));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      filter: drop-shadow(0 0 4px rgba(255, 150, 0, 0.4));
+    }
+
+    .team-coords {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 12px;
+      margin-bottom: 4px;
+      flex-wrap: wrap;
+    }
+
+    .team-coords .coord-label {
+      font-size: 0.72rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--fire-orange);
+      white-space: nowrap;
+    }
+
+    .team-coords .coord-names {
+      font-size: 0.9rem;
+      color: var(--fire-gold);
+      font-style: italic;
+    }
+
+    .team-header .team-desc {
+      margin-top: 10px;
+      color: var(--text-light);
+      line-height: 1.8;
+      font-size: 0.95rem;
+      font-style: italic;
+      border-left: 3px solid var(--fire-orange);
+      padding-left: 14px;
+    }
+
+    .team-body {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-top: none;
+      border-radius: 0 0 14px 14px;
+      padding: 28px;
+    }
+
+    .phase {
+      margin-bottom: 28px;
+    }
+
+    .phase-title {
+      display: inline-block;
+      background: linear-gradient(90deg, var(--crimson), var(--crimson-mid));
+      color: var(--fire-gold);
+      padding: 5px 16px;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+      border: 1px solid rgba(255, 165, 0, 0.3);
+    }
+
+    .phase ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .phase ul li {
+      padding: 8px 0 8px 26px;
+      position: relative;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      line-height: 1.7;
+      font-size: 0.94rem;
+      color: var(--text-light);
+    }
+
+    .phase ul li:last-child { border-bottom: none; }
+
+    .phase ul li::before {
+      content: '◆';
+      position: absolute;
+      left: 0;
+      color: var(--fire-orange);
+      font-size: 0.6rem;
+      top: 13px;
+    }
+
+    /* ── INFO BOXES ── */
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .info-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px;
+      border-top: 3px solid var(--fire-orange);
+    }
+
+    .info-box h3 {
+      font-size: 0.85rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--fire-gold);
+      margin-bottom: 10px;
+    }
+
+    .info-box p {
+      color: var(--text-light);
+      line-height: 1.7;
+      font-size: 0.94rem;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      position: relative;
+      z-index: 10;
+      text-align: center;
+      padding: 24px;
+      color: var(--text-muted);
+      font-size: 0.8rem;
+      border-top: 1px solid var(--border);
+      letter-spacing: 1px;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 600px) {
+      .countdown-block { min-width: 110px; padding: 16px 18px; }
+      .countdown-number { font-size: 2.4rem; }
+      .main-nav button { padding: 14px 18px; font-size: 0.82rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Fire background -->
+  <div class="fire-bg" id="fireBg"></div>
+
+  <!-- Header -->
+  <header>
+    <div class="header-inner">
+      <div class="logo-wrap">
+        <img class="logo-img" src="data:image/jpeg;base64,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" alt="Logo Avivamento - Paróquia Imaculada Conceição">
+      </div>
+      <div class="header-text">
+        <h1>3º Avivamento</h1>
+        <div class="subtitle">Paróquia Imaculada Conceição</div>
+        <div class="dates-badge">30 e 31 de Outubro &bull; 1 de Novembro de 2026</div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Navigation -->
+  <nav class="main-nav">
+    <button class="active" onclick="switchTab('geral', this)">Geral</button>
+    <button onclick="switchTab('responsabilidades', this)">Responsabilidades</button>
+    <button onclick="switchTab('diretrizes', this)">Diretrizes</button>
+  </nav>
+
+  <!-- Content -->
+  <div class="content">
+
+    <!-- ══ TAB: GERAL ══ -->
+    <div id="tab-geral" class="tab-panel active">
+
+      <!-- Countdown -->
+      <div class="countdown-section">
+        <div class="countdown-title">Contagem Regressiva para o Avivamento</div>
+        <div class="countdown-grid">
+          <div class="countdown-block">
+            <div class="countdown-number" id="days">—</div>
+            <div class="countdown-label">Dias</div>
+          </div>
+          <div class="countdown-block">
+            <div class="countdown-number" id="weeks">—</div>
+            <div class="countdown-label">Semanas</div>
+          </div>
+          <div class="countdown-block">
+            <div class="countdown-number" id="hours">—</div>
+            <div class="countdown-label">Horas</div>
+          </div>
+        </div>
+        <div class="event-dates-display">30 e 31 de outubro &bull; 1 de novembro de 2026</div>
+      </div>
+
+      <!-- Sobre -->
+      <div class="section-heading">
+        <span class="flame-icon">🔥</span>
+        <h2>Sobre o Avivamento</h2>
+        <div class="line"></div>
+      </div>
+
+      <div class="card">
+        <p>
+          O retiro <strong style="color: var(--fire-gold)">"Avivamento"</strong> é uma experiência espiritual voltada para a renovação da fé
+          e o fortalecimento da vida cristã. Seu objetivo central é despertar um novo fervor nos participantes,
+          proporcionando um encontro mais profundo com Deus e uma revitalização da vida em comunidade.
+        </p>
+        <br>
+        <p>
+          Durante o evento, serão promovidos momentos de <strong style="color: var(--fire-orange)">adoração e louvor</strong>,
+          criando um ambiente propício para intensa oração e conexão com a presença divina. As pregações têm como foco
+          o avivamento espiritual, destacando o poder do Espírito Santo, o chamado à santidade e a necessidade de conversão pessoal.
+          Além disso, os participantes poderão vivenciar sacramentos como a <strong style="color: var(--fire-orange)">Eucaristia e a Confissão</strong>.
+        </p>
+        <br>
+        <p>
+          O retiro também oferecerá momentos de <strong style="color: var(--fire-orange)">partilha e testemunhos</strong>,
+          nos quais os participantes poderão contar como suas vidas foram transformadas pela fé. Dinâmicas e atividades
+          serão organizadas para promover a integração entre os presentes, fortalecendo os laços comunitários e o senso
+          de unidade entre todos.
+        </p>
+      </div>
+
+      <!-- Info Grid -->
+      <div class="section-heading">
+        <span class="flame-icon">🕊️</span>
+        <h2>Informações Gerais</h2>
+        <div class="line"></div>
+      </div>
+
+      <div class="info-grid">
+        <div class="info-box">
+          <h3>📅 Datas</h3>
+          <p>30 de outubro (sexta-feira)<br>31 de outubro (sábado)<br>1 de novembro (domingo)</p>
+        </div>
+        <div class="info-box">
+          <h3>👥 Participantes</h3>
+          <p>Servos e retirantes de todas as paróquias. Idade mínima 18 anos e máxima 35 anos.</p>
+        </div>
+        <div class="info-box">
+          <h3>🏡 Local</h3>
+          <p>Casa de retiro com dormitórios. Todos os participantes permanecem no local de sexta a domingo.</p>
+        </div>
+        <div class="info-box">
+          <h3>✝️ Sacramentos</h3>
+          <p>Eucaristia, Confissão, Adoração ao Santíssimo Sacramento.</p>
+        </div>
+        <div class="info-box">
+          <h3>📋 Preparatórias</h3>
+          <p>Três encontros preparatórios, sendo o último com Adoração e a Missa de Entrega — ambos indispensáveis.</p>
+        </div>
+        <div class="info-box">
+          <h3>👕 Vestimenta</h3>
+          <p>Roupas bem comportadas e modestas durante todo o encontro.</p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ══ TAB: RESPONSABILIDADES ══ -->
+    <div id="tab-responsabilidades" class="tab-panel">
+
+      <div class="section-heading">
+        <span class="flame-icon">🔥</span>
+        <h2>Equipes e Responsabilidades</h2>
+        <div class="line"></div>
+      </div>
+
+      <!-- Team Selector -->
+      <div class="team-nav-wrap">
+        <button class="team-btn active" onclick="switchTeam('coord', this)">Coord. Geral</button>
+        <button class="team-btn" onclick="switchTeam('controle', this)">Controle</button>
+        <button class="team-btn" onclick="switchTeam('financeiro', this)">Financeiro</button>
+        <button class="team-btn" onclick="switchTeam('lojinha', this)">Lojinha e Compras</button>
+        <button class="team-btn" onclick="switchTeam('intercessao', this)">Intercessão</button>
+        <button class="team-btn" onclick="switchTeam('acolhimento', this)">Acolhimento</button>
+        <button class="team-btn" onclick="switchTeam('ordem', this)">Ordem</button>
+        <button class="team-btn" onclick="switchTeam('musica', this)">Música / Som</button>
+        <button class="team-btn" onclick="switchTeam('comunicacao', this)">Comunicação</button>
+        <button class="team-btn" onclick="switchTeam('cenaculos', this)">Cenáculos</button>
+        <button class="team-btn" onclick="switchTeam('cozinha', this)">Cozinha</button>
+        <button class="team-btn" onclick="switchTeam('infra', this)">Infraestrutura</button>
+        <button class="team-btn" onclick="switchTeam('decoracao', this)">Decoração e Bem-estar</button>
+      </div>
+
+      <!-- ─ Coordenação Geral ─ -->
+      <div id="team-coord" class="team-panel active">
+        <div class="team-header">
+          <h2>⚜️ Coordenação Geral / Condutores</h2>
+          <div class="team-coords"><span class="coord-label">Coordenadores</span><span class="coord-names">Seminarista Bruno Reis, Gabi Escaleira &amp; Davi Ferrarez</span></div>
+          <p class="team-desc">Responsável pela condução geral do retiro, alinhamento entre equipes e discernimento das decisões necessárias ao longo do encontro. Preparam a recepção dos participantes e convidados, entregam as lembranças e conduzem todo o retiro, alinhando a equipe de controle.</p>
+        </div>
+        <div class="team-body">
+          <div class="phase">
+            <div class="phase-title">Pré Avivamento</div>
+            <ul>
+              <li>Definir tema, cronograma e direcionamento espiritual do retiro</li>
+              <li>Escolher e acompanhar coordenadores de equipes e ministérios</li>
+              <li>Organizar reuniões gerais</li>
+              <li>Confirmar pregadores, datas e programação</li>
+              <li>Acompanhar planejamento das equipes</li>
+              <li>Garantir unidade entre organização, espiritualidade e condução do retiro</li>
+            </ul>
+          </div>
+          <div class="phase">
+            <div class="phase-title">Durante o Avivamento</div>
+            <ul>
+              <li>Conduzir os momentos do encontro</li>
+              <li>Apresentar pregadores e introduzir atividades</li>
+              <li>Dar avisos e alinhamentos gerais</li>
+              <li>Tomar decisões necessárias relacionadas ao cronograma e organização</li>
+              <li>Garantir fluidez, tranquilidade e unidade durante todo o retiro</li>
+              <li>Permanecer alinhado à equipe de Controle</li>
+            </ul>
+          </div>
+          <div class="phase">
+            <div class="phase-title">Pós Avivamento</div>
+            <ul>
+              <li>Acompanhar desmontagem e finalização do retiro</li>
+              <li>Reunir feedbacks das equipes</li>
+              <li>Avaliar pontos positivos e melhorias para próximos encontros</li>
+              <li>Garantir encerramento organizacional e espiritual do retiro</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- ─ Controle ─ -->
+      <div id="team-controle" class="team-panel">
+        <div class="team-header">
+          <h2>🗓️ Equipe de Controle</h2>
+          <div class="team-coords"><span class="coord-label">Coordenadores</span><span class="coord-names">Juliana Silva &amp; Amanda Nunes</span></div>
+          <p class="team-desc">Responsável pelo andamento do cronograma do retiro, garantindo organização e alinhamento entre os momentos e equipes. Convida, acompanha, recebe e organiza as lembrancinhas dos convidados.</p>
+        </div>
+        <div class="team-body">
+          <div class="phase">
+            <div class="phase-title">Pré Avivamento</div>
+            <ul>
+              <li>Estudar e revisar o cronograma do retiro</li>
+              <li>Antever possíveis conflitos de horários ou dificuldades operacionais</li>
+              <li>Permanecer alinhada à Coordenação Geral</li>
+              <li>Convidar pregadores, confirmar participações, pedir foto e material de divulgação</li>
+              <li>Alinhar necessidades relacionadas a transporte, ajudas ministeriais e músicas solicitadas pelos pregadores</li>
+              <li>Organizar lembranças e recepção dos convidados</li>
+            </ul>
+          </div>
+          <div class="phase">
+            <div class="phase-title">Durante o Avivamento</div>
+            <ul>
+              <li>Controlar os horários e o andamento do cronograma</li>
+              <li>Comunicar às equipes sobre mudanças ou necessidades</li>
+              <li>Acompanhar pregadores e convidados</li>
+              <li>Organizar entrega de lembranças</li>
+              <li>Auxiliar a Coordenação Geral na condução do retiro</li>
+            </ul>
+          </div>
+          <div class="phase">
+            <div class="phase-title">Pós Avivamento</div>
+            <ul>
+              <li>Auxiliar na organização final dos espaços e materiais</li>
+              <li>Apoiar as equipes de Infraestrutura e Ordem</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- ─ Financeiro ─ -->
+      <div id="team-financeiro" class="team-panel">
+        <div class="team-header">
+          <h2>💰 Financeiro</h2>
+          <div class="team-coords"><span class="coord-label">Coordenadores</span><span class="coord-names">Luan Tavares, Ana Carolina &amp; Lucas Sanches</span></div>
+          <p class="team-desc">Responsável pela administração financeira do retiro, incluindo controle de entradas e saídas (fluxo de caixa), pagamentos, arrecadações, compras e prestação de contas. Atua em conjunto com a Coordenação Geral, Infraestrutura e Lojinha.</p>
+        </div>
+        <div class="team-body">
+          <div class="phase">
+            <div class="phase-title">Pré Avivamento</div>
+            <ul>
+              <li>Manter contato com o financeiro da paróquia para alinhamento da situação financeira do retiro</li>
+              <li>Controlar e gerir o pagamento dos servos e retirantes</li>
+              <li>Administrar o financeiro da "Noite de Louvor" e "Tardezinha"</li>
+              <li>Planejar ações de arrecadação para o retiro</li>
+              <li>Coordenar e acompanhar campanha de doações para o retiro</li>
+              <li>Autorizar e realizar compras previamente aprovadas pela coordenação</li>
+              <li>Fazer compras de alimentação, junto à equipe de Infraestrutura e Lojinha</li>
+              <li>Planejar, junto à equipe de Lojinha, os produtos e preços que serão praticados no retiro</li>
+            </ul>
+          </div>
+          <div class="phase">
+            <div class="phase-title">Durante o Avivamento</div>
+            <ul>
+              <li>Disponibilizar suporte financeiro para necessidades emergenciais</li>
+              <li>Controlar gastos realizados durante o evento</li>
+              <li>Acompanhar o desempenho financeiro da lojinha e avaliar necessidade de reposição</li>
+              <li>Auxiliar outras equipes conforme alinhamento prévio</li>
+            </ul>
+          </div>
+          <div class="phase">
+            <div class="phase-title">Pós Avivamento</div>
+            <ul>
+              <li>Realizar a prestação de contas final</li>
+              <li>Apresentar saldo, balanço e relatório financeiro do retiro</li>
+              <li>Deixar separado o valor para dar a entrada na casa para o Avivamento seguinte</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- ─ Lojinha ─ -->
+      <div id="team-lojinha" class="team-panel">
+        <div class="team-header">
+          <h2>🛍️ Equipe de Lojinha e Compras</h2>
+          <div class="team-coords"><span class="coord-label">Coordenadores</span><span class="coord-names">Leticia Tavares &amp; Gabriel Cantuaria</span></div>
+          <p class="team-desc">Responsável pela organização da lojinha, pelas doações e aquisição de todos os materiais/itens necessários. Venda de produtos do Avivamento, comes e bebes.</p>
+        </div>
+        <div class="team-body">
+          <div class="phase">
+            <div class="phase-title">Pré Avivamento</div>
+            <ul>
+              <li>Buscar doações de materiais e produtos necessários</li>
+              <li>Comprar os itens previamente definidos para o retiro</li>
+              <li>Organizar e administrar a lojinha nos eventos de arrecadação</li>
+              <li>Separar materiais de venda e conferir estoque</li>
+            </ul>
+          </div>
+          <div class="phase">
+            <div class="phase-title">Durante o Avivamento</div>
+            <ul>
+              <li>Organizar e administrar a lojinha do retiro</li>
+              <li>Providenciar materiais necessários: máquina de cartão, troco, mesas, produtos, alimentos, bebidas e itens personalizados</li>
+              <li>Controlar estoque e necessidade de reposição</li>
+              <li>Manter alinhamento constante com o Financeiro</li>
+            </ul>
+          </div>
+          <div class="phase">
+            <div class="phase-title">Pós Avivamento</div>
+            <ul>
+              <li>Realizar conferência de estoque</li>
+              <li>Organizar materiais remanescentes</li>
+              <li>Apresentar prestação de contas da lojinha</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- ─ Intercessão ─ -->
+      <div id="team-intercessao" class="team-panel">
+        <div class="team-header">
+          <h2>🙏 Ministério de Intercessão</h2>
+          <div class="team-coords"><span class="coord-label">Coordenadores</span><span class="coord-names">Bernardo Durães &amp; Joyce Rocha</span></div>
+          <p class="team-desc">Responsável pela sustentação espiritual do retiro por meio da oração, intercessão e organização dos momentos litúrgicos. Organiza a estrutura da capela, missa e adoração; expõe o Santíssimo Sacramento e auxilia os participantes nesses momentos.</p>
+        </div>
+        <div class="team-body">
+          <div class="phase">
+            <div class="phase-title">Pré Avivamento</div>
+            <ul>
+              <li>Definir frequência de oração do ministério, promovendo momentos de intercessão pelos servos, retirantes, pregadores e coordenação</li>
+              <li>Propor roteiros de oração para preparação espiritual dos servos (passagens, músicas, meditações)</li>
+              <li>Separar e levar os materiais litúrgicos necessários para o retiro (adoração, capela e Santa Missa)</li>
+            </ul>
+          </div>
+          <div class="phase">
+            <div class="phase-title">Durante o Avivamento</div>
+            <ul>
+              <li>Interceder continuamente pelo encontro</li>
+              <li>Acolher pregadores para oração antes das pregações e orar durante a pregação</li>
+              <li>Organizar e zelar pela capela, Santa Missa e adoração</li>
+              <li>Velar pelo Santíssimo Sacramento</li>
+              <li>Organizar atendimentos de confissão e auxiliar os sacerdotes</li>
+              <li>Auxiliar os retirantes nos momentos de oração</li>
+              <li>Receber as equipes nas visitas ao Santíssimo</li>
+            </ul>
+          </div>
+          <div class="phase">
+            <div class="phase-title">Pós Avivamento</div>
+            <ul>
+              <li>Guardar e devolver à sacristia todos os materiais litúrgicos utilizados</li>
+              <li>Conferir a organização da capela e espaços de oração</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- ─ Acolhimento ─ -->
+      <div id="team-acolhimento" class="team-panel">
+        <div class="team-header">
+          <h2>🤝 Ministério de Acolhimento e Fichas</h2>
+          <div class="team-coords"><span class="coord-label">Coordenadores</span><span class="coord-names">Ricardo Rios, Ana Giulia &amp; Maria Eduarda Porciuncula</span></div>
+          <p class="team-desc">Responsável pelo acolhimento dos retirantes desde a inscrição até o encerramento. Administra formulários, confecciona camisas e crachás, organiza grupos de partilha, quartos e escala de vigia noturna. Sua identificação se dará pelo sorriso e pela proximidade com os retirantes.</p>
+        </div>
+        <div class="team-body">
+          <div class="phase">
+            <div class="phase-title">Pré Avivamento</div>
+            <ul>
+              <li>Elaborar e administrar o formulário de inscrição</li>
+              <li>Entrar em contato com os retirantes para envio de informações e confirmação de dados</li>
+              <li>Organizar grupos de partilha</li>
+              <li>Organizar distribuição de quartos</li>
+              <li>Confeccionar e separar camisas, crachás e materiais de recepção</li>
+              <li>Preparar programações impressas e listas necessárias</li>
+            </ul>
+          </div>
+          <div class="phase">
+            <div class="phase-title">Durante o Avivamento</div>
+            <ul>
+              <li>Recepcionar os participantes na chegada</li>
+              <li>Distribuir crachás, camisas e materiais</li>
+              <li>Encaminhar retirantes aos quartos e espaços do retiro</li>
+              <li>Acompanhar os participantes ao longo do encontro, favorecendo integração e acolhimento</li>
+              <li>Estar atento a retirantes isolados, oferecendo proximidade e suporte</li>
+              <li>Organizar a escala de vigia noturna</li>
+              <li>Auxiliar na entrega de lembranças e materiais da equipe de Decoração e Bem-Estar</li>
+            </ul>
+          </div>
+          <div class="phase">
+            <div class="phase-title">Pós Avivamento</div>
+            <ul>
+              <li>Conferir materiais utilizados</li>
+              <li>Auxiliar na organização final do retiro</li>
+              <li>Apoiar as equipes de Ordem e Infraestrutura</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- ─ Ordem ─ -->
+      <div id="team-ordem" class="team-panel">
+        <div class="team-header">
+          <h2>✨ Equipe de Ordem — Min. Santa Marta</h2>
+          <div class="team-coords"><span class="coord-label">Coordenadores</span><span class="coord-names">Rafaela Barbosa &amp; Arthur Teixeira</span></div>
+          <p class="team-desc">Organiza e limpa os espaços antes, durante e após o retiro. Dá suporte à equipe de infraestrutura. Tudo deve ser feito como se fosse para o Senhor! Ordem também é evangelização.</p>
+        </div>
+        <div class="team-body">
+          <div class="phase">
+            <div class="phase-title">Pré Avivamento</div>
+            <ul>
+              <li>Preparar quartos, plenário, banheiros e refeitório</li>
+              <li>Garantir limpeza e organização dos ambientes antes da chegada dos participantes</li>
+              <li>Auxiliar na organização inicial da estrutura do retiro</li>
+            </ul>
+          </div>
+          <div class="phase">
+            <div class="phase-title">Durante o Avivamento</div>
+            <ul>
+              <li>Organizar os espaços antes e após cada atividade</li>
+              <li>Preparar mesas para refeições</li>
+              <li>Organizar o plenário conforme necessidade dos momentos</li>
+              <li>Limpar banheiros e áreas comuns</li>
+              <li>Auxiliar na organização da cozinha e utensílios quando necessário</li>
+            </ul>
+          </div>
+          <div class="phase">
+            <div class="phase-title">Pós Avivamento</div>
+            <ul>
+              <li>Realizar limpeza final dos quartos, banheiros, cozinha e plenário</li>
+              <li>Conferir objetos esquecidos — "Achados e perdidos"</li>
+              <li>Auxiliar na devolução e organização dos materiais utilizados</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- ─ Música ─ -->
+      <div id="team-musica" class="team-panel">
+        <div class="team-header">
+          <h2>🎵 Ministério de Música / Som</h2>
+          <div class="team-coords"><span class="coord-label">Coordenadores</span><span class="coord-names">Iran Ferreira, Bruno Scot &amp; Mari Ferrarez</span></div>
+          <p class="team-desc">Conduz e ministra todos os momentos que houver música: animação, louvor, oração, adoração, missa. Todo o ministério deve estar presente em todos os momentos do retiro, com todos os instrumentos.</p>
+        </div>
+        <div class="team-body">
+          <div class="phase">
+            <div class="phase-title">Pré Avivamento</div>
+            <ul>
+              <li>Ensaiar músicas para o Avivamento com todo o ministério, principalmente as solicitadas pelos pregadores</li>
+              <li>Conduzir a "Noite de Louvor" e "Tardezinha"</li>
+              <li>Tocar na adoração (confirmar datas)</li>
+              <li>Preparar e levar todo o material de som necessário para o retiro</li>
+              <li>Montar todo o som antes da chegada dos retirantes</li>
+            </ul>
+          </div>
+          <div class="phase">
+            <div class="phase-title">Durante o Avivamento</div>
+            <ul>
+              <li>Conduzir todos os momentos do retiro que houver música: animação, louvor, oração, adoração e missa</li>
+              <li>Dar suporte à equipe de dinâmicas e aos palestrantes</li>
+            </ul>
+          </div>
+          <div class="phase">
+            <div class="phase-title">Pós Avivamento</div>
+            <ul>
+              <li>Desmontar o som e devolver para a Paróquia</li>
+              <li>Apoiar infra e ordem na arrumação dos espaços</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- ─ Comunicação ─ -->
+      <div id="team-comunicacao" class="team-panel">
+        <div class="team-header">
+          <h2>📸 Ministério de Comunicação</h2>
+          <div class="team-coords"><span class="coord-label">Coordenadores</span><span class="coord-names">Mari Soares &amp; Carol Atella</span></div>
+          <p class="team-desc">Responsável pela divulgação do retiro, desde o início das inscrições até o pós Avivamento. Registra todos os momentos em fotos e vídeos, produz conteúdo e o vídeo final do Retiro Avivamento.</p>
+        </div>
+        <div class="team-body">
+          <div class="phase">
+            <div class="phase-title">Pré Avivamento</div>
+            <ul>
+              <li>Elaborar cronograma de postagens</li>
+              <li>Divulgar o retiro nas redes sociais e meios de comunicação</li>
+              <li>Produzir conteúdos de incentivo às inscrições</li>
+              <li>Preparar identidade visual e materiais gráficos do encontro</li>
+            </ul>
+          </div>
+          <div class="phase">
+            <div class="phase-title">Durante o Avivamento</div>
+            <ul>
+              <li>Registrar os momentos em fotos e vídeos</li>
+              <li>Produzir conteúdos para publicação durante o retiro, conforme discernimento da coordenação</li>
+              <li>Organizar arquivos e mídias produzidas</li>
+            </ul>
+          </div>
+          <div class="phase">
+            <div class="phase-title">Pós Avivamento</div>
+            <ul>
+              <li>Fazer upload das mídias no drive</li>
+              <li>Produzir o vídeo final do retiro</li>
+              <li>Publicar registros e agradecimentos pós-evento</li>
+              <li>Auxiliar equipe de decoração a desmontar e guardar o que puder ser reaproveitado</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- ─ Cenáculos ─ -->
+      <div id="team-cenaculos" class="team-panel">
+        <div class="team-header">
+          <h2>🕯️ Ministério de Cenáculos</h2>
+          <div class="team-coords"><span class="coord-label">Coordenadores</span><span class="coord-names">Giulia Pequeno &amp; Gabi Rocha</span></div>
+          <p class="team-desc">Conduz todas as dinâmicas do retiro, cuida da cenografia e dos efeitos especiais, com apoio das equipes de ordem, infraestrutura e música. Conduz os cenáculos para partilha e oração, favorecendo um ambiente familiar onde seja possível criar laços.</p>
+        </div>
+        <div class="team-body">
+          <div class="phase">
+            <div class="phase-title">Pré Avivamento</div>
+            <ul>
+              <li>Planejar as dinâmicas do retiro, em contato com a Coordenação Geral</li>
+              <li>Providenciar os materiais necessários para cada momento</li>
+              <li>Elaborar estrutura de perguntas e direcionamentos para partilhas</li>
+              <li>Organizar cenografia e efeitos necessários para os momentos</li>
+            </ul>
+          </div>
+          <div class="phase">
+            <div class="phase-title">Durante o Avivamento</div>
+            <ul>
+              <li>Conduzir as dinâmicas previstas na programação</li>
+              <li>Organizar cenários e ambientações específicas dos momentos</li>
+              <li>Conduzir os cenáculos de partilha e oração</li>
+              <li>Favorecer ambiente de acolhimento, escuta e integração</li>
+              <li>Estar atento às pregações para auxiliar nas partilhas</li>
+            </ul>
+          </div>
+          <div class="phase">
+            <div class="phase-title">Pós Avivamento</div>
+            <ul>
+              <li>Auxiliar na desmontagem das estruturas utilizadas</li>
+              <li>Organizar materiais e cenografias</li>
+              <li>Apoiar as equipes de Infraestrutura, Decoração e Bem-Estar</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- ─ Cozinha ─ -->
+      <div id="team-cozinha" class="team-panel">
+        <div class="team-header">
+          <h2>🍽️ Equipe de Cozinha</h2>
+          <p class="team-desc">Responsável pelo planejamento e preparo das refeições do retiro. Serve e organiza os utensílios, sempre com suporte da infraestrutura. Deve se comunicar diretamente com o responsável do financeiro.</p>
+        </div>
+        <div class="team-body">
+          <div class="phase">
+            <div class="phase-title">Pré Avivamento</div>
+            <ul>
+              <li>Montar o cardápio do retiro</li>
+              <li>Definir quantidades necessárias de cada item</li>
+              <li>Informar ao Financeiro as necessidades de compras e doações</li>
+              <li>Visitar a casa de retiro para conhecer a estrutura da cozinha</li>
+              <li>Planejar utensílios e materiais necessários</li>
+            </ul>
+          </div>
+          <div class="phase">
+            <div class="phase-title">Durante o Avivamento</div>
+            <ul>
+              <li>Verificar se recebeu todos os itens necessários para os preparos ao longo do retiro</li>
+              <li>Preparar refeições conforme o cronograma</li>
+              <li>Organizar a cozinha durante o uso</li>
+              <li>Controlar armazenamento e conservação dos alimentos</li>
+              <li>Limpeza dos utensílios utilizados e do espaço</li>
+            </ul>
+          </div>
+          <div class="phase">
+            <div class="phase-title">Pós Avivamento</div>
+            <ul>
+              <li>Limpar e organizar a cozinha</li>
+              <li>Guardar materiais utilizados</li>
+              <li>Conferir utensílios e equipamentos</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- ─ Infraestrutura ─ -->
+      <div id="team-infra" class="team-panel">
+        <div class="team-header">
+          <h2>🔧 Equipe de Infraestrutura</h2>
+          <div class="team-coords"><span class="coord-label">Coordenadores</span><span class="coord-names">Marcelo Cadilhe, Gabriel Nunes &amp; Giulia Antunes</span></div>
+          <p class="team-desc">Responsável por toda a estrutura física e suporte operacional do retiro. Leva e devolve os materiais necessários, auxilia na lista de compras com o financeiro, realiza compras dos materiais estruturais e oferece suporte geral às equipes durante o evento.</p>
+        </div>
+        <div class="team-body">
+          <div class="phase">
+            <div class="phase-title">Pré Avivamento</div>
+            <ul>
+              <li>Visitar a casa de retiro para planejamento estrutural</li>
+              <li>Preparar a lista de todo o material necessário para ser levado</li>
+              <li>Definir disposição dos espaços e materiais</li>
+              <li>Preparar lista de compras necessários</li>
+              <li>Auxiliar o Financeiro nas compras</li>
+              <li>Organizar iluminação e demais estruturas do evento</li>
+              <li>Planejar transporte dos materiais</li>
+            </ul>
+          </div>
+          <div class="phase">
+            <div class="phase-title">Durante o Avivamento</div>
+            <ul>
+              <li>Oferecer suporte geral às equipes</li>
+              <li>Resolver necessidades estruturais e operacionais</li>
+              <li>Auxiliar na montagem e ajustes dos espaços ao longo do retiro</li>
+              <li>Garantir funcionamento adequado da estrutura do encontro</li>
+            </ul>
+          </div>
+          <div class="phase">
+            <div class="phase-title">Pós Avivamento</div>
+            <ul>
+              <li>Desmontar toda a estrutura utilizada</li>
+              <li>Conferir materiais antes da saída da casa de retiro</li>
+              <li>Organizar devolução e armazenamento dos itens utilizados</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- ─ Decoração ─ -->
+      <div id="team-decoracao" class="team-panel">
+        <div class="team-header">
+          <h2>🌸 Equipe de Decoração e Bem-estar</h2>
+          <div class="team-coords"><span class="coord-label">Coordenadores</span><span class="coord-names">Julio Milhm, Carol Araujo &amp; Caio Domice</span></div>
+          <p class="team-desc">Responsável pelo bem-estar dos participantes e pela ambientação dos ambientes, criando um espaço de aconchego associado à identidade visual do Avivamento. Também atua prestando primeiros socorros, orientações médicas e suporte físico e emocional.</p>
+        </div>
+        <div class="team-body">
+          <div class="phase">
+            <div class="phase-title">Pré Avivamento</div>
+            <ul>
+              <li>Visitar a casa de retiro para planejamento da decoração e espaço do bem-estar</li>
+              <li>Criar identidade visual e ambientação do retiro</li>
+              <li>Planejar decoração dos espaços conforme os momentos</li>
+              <li>Preparar lembranças e pequenos gestos de acolhimento aos retirantes</li>
+              <li>Organizar materiais decorativos e de ambientação</li>
+              <li>Preparar materiais necessários para primeiros socorros (remédios, aparelho de pressão, etc.)</li>
+            </ul>
+          </div>
+          <div class="phase">
+            <div class="phase-title">Durante o Avivamento</div>
+            <ul>
+              <li>Cuidar da ambientação visual dos espaços</li>
+              <li>Manter organização estética do plenário e áreas comuns</li>
+              <li>Auxiliar na experiência de acolhimento e conforto dos retirantes</li>
+              <li>Organizar entrega de lembranças e ações especiais previstas</li>
+              <li>Acompanhar o bem-estar físico e emocional dos participantes e prestar ajuda caso necessário</li>
+            </ul>
+          </div>
+          <div class="phase">
+            <div class="phase-title">Pós Avivamento</div>
+            <ul>
+              <li>Retirar decorações e materiais utilizados</li>
+              <li>Organizar e guardar os itens reaproveitáveis</li>
+              <li>Auxiliar na desmontagem final dos ambientes</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ══ TAB: DIRETRIZES ══ -->
+    <div id="tab-diretrizes" class="tab-panel">
+
+      <div class="section-heading">
+        <span class="flame-icon">📜</span>
+        <h2>Diretrizes Gerais</h2>
+        <div class="line"></div>
+      </div>
+
+      <div class="card">
+        <ul class="rules-list">
+          <li>Servos e retirantes de todas as paróquias podem participar.</li>
+          <li>Para trabalhar, é necessário ter feito o retiro ou já ter trabalhado anteriormente. Apenas em casos de necessidade podem ser aceitas exceções.</li>
+          <li>Idade mínima de 18 e máxima de 35 anos.</li>
+          <li>É necessária uma preparação específica para aqueles que vão trabalhar no encontro — serão três preparatórias, sendo a última com adoração e a Missa de Entrega, ambas indispensáveis.</li>
+          <li>Ausências só poderão ocorrer por motivo justo e devem ser comunicadas aos coordenadores da equipe. Caso os participantes faltem sem justificativa concreta, serão substituídos.</li>
+          <li>Se necessário, algumas equipes poderão ter reuniões extras, programadas pelos coordenadores.</li>
+          <li>A roupa a ser usada durante o encontro deve ser bem comportada e modesta.</li>
+          <li>É necessário respeitar os horários de entrada e saída.</li>
+          <li>A casa de retiro deve comportar todos os servos e retirantes de sexta a domingo, com dormitórios.</li>
+          <li>Todos devem permanecer na casa de retiro; somente em caso de questões pessoais, e com liberação dos coordenadores, será permitida a saída.</li>
+          <li>A coordenação de equipe é fundamental para o bom andamento do encontro. Os coordenadores devem acompanhar atentamente cada atividade, garantindo que tudo aconteça com harmonia e dentro do tempo previsto.</li>
+          <li>O cumprimento dos prazos é essencial. Sempre que houver dúvidas, os coordenadores devem buscar orientação dos Coordenadores Gerais ou do dirigente responsável.</li>
+          <li>Todos os coordenadores devem visitar a casa de retiro previamente.</li>
+          <li>Todos os servos devem ajudar na arrumação antes e após o retiro.</li>
+          <li>Os coordenadores devem informar no convite para qual equipe a pessoa está sendo designada.</li>
+          <li>A participação dos coordenadores na reunião de balanço é obrigatória.</li>
+          <li>A Coordenação Geral é composta por dois ou três jovens, além do diretor espiritual.</li>
+        </ul>
+      </div>
+
+      <div class="section-heading" style="margin-top: 36px;">
+        <span class="flame-icon">✝️</span>
+        <h2>Espiritualidade do Retiro</h2>
+        <div class="line"></div>
+      </div>
+
+      <div class="card">
+        <p>O retiro <strong style="color: var(--fire-gold)">"Avivamento"</strong> é uma experiência espiritual voltada para a renovação da fé e o fortalecimento da vida cristã. Seu objetivo central é despertar um novo fervor nos participantes, proporcionando um encontro mais profundo com Deus e uma revitalização da vida em comunidade.</p>
+        <br>
+        <p>Durante o evento, serão promovidos momentos de <strong style="color: var(--fire-orange)">adoração e louvor</strong>, criando um ambiente propício para intensa oração e conexão com a presença divina. As pregações têm como foco o avivamento espiritual, destacando o poder do Espírito Santo, o chamado à santidade e a necessidade de conversão pessoal.</p>
+        <br>
+        <p>O retiro também oferecerá momentos de <strong style="color: var(--fire-orange)">partilha e testemunhos</strong>, nos quais os participantes poderão contar como suas vidas foram transformadas pela fé. Dinâmicas e atividades serão organizadas para promover a integração entre os presentes, fortalecendo os laços comunitários e o senso de unidade entre todos.</p>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <p>3º Avivamento &mdash; Paróquia Imaculada Conceição &mdash; 2026</p>
+  </footer>
+
+  <script>
+    // ── Tab switching ──
+    function switchTab(id, btn) {
+      document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.main-nav button').forEach(b => b.classList.remove('active'));
+      document.getElementById('tab-' + id).classList.add('active');
+      btn.classList.add('active');
+    }
+
+    // ── Team switching ──
+    function switchTeam(id, btn) {
+      document.querySelectorAll('.team-panel').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.team-btn').forEach(b => b.classList.remove('active'));
+      document.getElementById('team-' + id).classList.add('active');
+      btn.classList.add('active');
+    }
+
+    // ── Countdown ──
+    function updateCountdown() {
+      const now = new Date();
+      const target = new Date('2026-10-31T00:00:00');
+      const diff = target - now;
+
+      if (diff <= 0) {
+        document.getElementById('days').textContent = '🔥';
+        document.getElementById('weeks').textContent = '🔥';
+        document.getElementById('hours').textContent = '🔥';
+        return;
+      }
+
+      const totalHours = Math.floor(diff / (1000 * 60 * 60));
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const weeks = Math.floor(days / 7);
+
+      document.getElementById('days').textContent = days;
+      document.getElementById('weeks').textContent = weeks;
+      document.getElementById('hours').textContent = totalHours.toLocaleString('pt-BR');
+    }
+
+    updateCountdown();
+    setInterval(updateCountdown, 60000);
+
+    // ── Fire Embers ──
+    const fireBg = document.getElementById('fireBg');
+    const EMBER_COUNT = 35;
+
+    for (let i = 0; i < EMBER_COUNT; i++) {
+      const e = document.createElement('div');
+      e.className = 'ember';
+
+      const left = Math.random() * 100;
+      const delay = Math.random() * 10;
+      const duration = 6 + Math.random() * 8;
+      const drift = (Math.random() - 0.5) * 120;
+      const size = 2 + Math.random() * 5;
+      const colors = ['#FF6B00', '#FF8C00', '#FFA500', '#FFD700', '#FF3300', '#FF5500'];
+      const color = colors[Math.floor(Math.random() * colors.length)];
+
+      e.style.cssText = `
+        left: ${left}%;
+        animation-delay: ${delay}s;
+        animation-duration: ${duration}s;
+        --drift: ${drift}px;
+        width: ${size}px;
+        height: ${size}px;
+        background: ${color};
+        box-shadow: 0 0 ${size * 2}px ${color};
+      `;
+      fireBg.appendChild(e);
+    }
+  </script>
+</body>
+</html>
